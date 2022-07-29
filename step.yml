@@ -1,0 +1,93 @@
+#
+# A couple of useful guides & docs:
+#
+# - Main Bitrise CLI docs: https://github.com/bitrise-io/bitrise/tree/master/_docs
+# - Step Development Guideline: https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+# - Bitrise.yml format spec: https://github.com/bitrise-io/bitrise/blob/master/_docs/bitrise-yml-format-spec.md
+# - Bitrise docs: http://devcenter.bitrise.io/
+# - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
+
+title: |-
+  Kotlin Step Test
+summary: |
+  Testing out executing Kotlin step directly.
+description: |
+  This is just a test.
+website: https://github.com/sujitpoudel/bitrise-step-kotlin-clone.git
+source_code_url: https://github.com/sujitpoudel/bitrise-step-kotlin-clone.git
+support_url: https://github.com/sujitpoudel/bitrise-step-kotlin-clone/issues
+published_at: 2022-06-29T19:21:14.9231203+02:00
+source: 
+  git: https://github.com/sujitpoudel/bitrise-step-kotlin-clone.git
+  commit: 8be81ebdbc9054774dde6ceb1ffee058e5404c96
+host_os_tags:
+  - osx-10.10
+  - ubuntu-16.04
+
+# If this step should be available only for certain project types
+# just uncomment this `project_type_tags` section and include all the
+# project types supported by the step. If the step can be used for all
+# project types then you can just remove this section.
+# If no `project_type_tags` specified (or specified as an empty array)
+# that means the step can be used for any project type.
+# You can find more information about project type tags in the Step Development Guideline:
+# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+#
+# project_type_tags:
+#   - ios
+#   - macos
+#   - android
+#   - xamarin
+#   - react-native
+#   - cordova
+#   - ionic
+
+# Type tags are used for categorizing steps, for easier step discovery in Step Libraries.
+# You can find more information about type tags in the Step Development Guideline:
+# https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+type_tags:
+  - code-sign
+
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: false
+run_if: ""
+
+deps:
+  brew:
+  - name: git
+  - name: wget
+  apt_get:
+  - name: git
+  - name: wget
+
+toolkit:
+  swift: 
+    binary_location: https://github.com/matrangam/bitrise-step-swift-clone/releases/download/0.0.2/bitrise-step-swift-clone
+    executable_name: bitrise-step-swift-clone
+
+inputs:
+    - repository_url: $REPOSITORY_URL
+      opts:
+        title: The URL of the repo to clone
+        is_required: true
+    - clone_destination: $CLONE_DESTINATION
+      opts:
+        title: A path relative to the bitrise.yml where the repo will be cloned.
+        is_required: true
+    - checkout_branch: $CHECKOUT_BRANCH
+      opts:
+        title: The branch to checkout, if omitted defaults to the remote's HEAD. Delegates to the --branch flag of git clone.
+    - clone_depth: $CLONE_DEPTH
+      opts:
+        title: If specified, will pass the value to the --depth flag.  If omitted, will do a full clone
+
+outputs:
+  - EXAMPLE_STEP_OUTPUT:
+    opts:
+      title: "Example Step Output"
+      summary: Summary. No more than 2-3 sentences.
+      description: |
+        Description of this output.
+
+        Can be Markdown formatted text.

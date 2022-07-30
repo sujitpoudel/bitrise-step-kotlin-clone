@@ -1,3 +1,3 @@
 
-rootProject.name = "bitrise-step-kotlin-test"
+rootProject.name = "bitrise-step-kotlin-clone"
 

@@ -1,33 +1,32 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    kotlin("multiplatform") version "1.6.20"
+    kotlin("jvm") version "1.6.20"
+    application
 }
 
 group = "bitrise.io"
-version = "0.0.1"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
-kotlin {
-    val hostOs = System.getProperty("os.name")
-    val isMingwX64 = hostOs.startsWith("Windows")
-    val nativeTarget = when {
-        hostOs == "Mac OS X" -> macosX64("native")
-        hostOs == "Linux" -> linuxX64("native")
-        isMingwX64 -> mingwX64("native")
-        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-    }
+dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
+    implementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.2.0.202206071550-r")
+    testImplementation(kotlin("test"))
+}
 
-    nativeTarget.apply {
-        binaries {
-            executable {
-                entryPoint = "main"
-            }
-        }
-    }
-    sourceSets {
-        val nativeMain by getting
-        val nativeTest by getting
-    }
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+application {
+    mainClass.set("MainKt")
 }

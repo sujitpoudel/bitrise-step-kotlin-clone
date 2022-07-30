@@ -1,0 +1,1 @@
+class ConfigException(msg: String): Exception(msg)

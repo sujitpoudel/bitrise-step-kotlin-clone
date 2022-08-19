@@ -17,6 +17,7 @@ dependencies {
     implementation("org.junit.jupiter:junit-jupiter:5.8.2")
     implementation("org.eclipse.jgit:org.eclipse.jgit:6.2.0.202206071550-r")
     testImplementation(kotlin("test"))
+    testImplementation("org.junit-pioneer:junit-pioneer:1.7.1")
 }
 
 tasks.test {
